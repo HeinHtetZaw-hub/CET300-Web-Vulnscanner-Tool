@@ -1,0 +1,29 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./vulnscanner.db
+      - RATE_LIMIT_RPS=10
+      - APP_VERSION=1.0.0
+    volumes:
+      - backend_data:/app
+    networks:
+      - vulnscanner
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - vulnscanner
+
+volumes:
+  backend_data:
+
+networks:
+  vulnscanner:
+    driver: bridge
