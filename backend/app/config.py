@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite+aiosqlite:///./vulnscanner.db"
     RATE_LIMIT_RPS: int = 10
     APP_VERSION: str = "1.0.0"
+    HTTP_TIMEOUT: float = 10.0
+    USER_AGENT: str = "VulnScanner/1.0 (authorised security testing only)"
 
 
 settings = Settings()
