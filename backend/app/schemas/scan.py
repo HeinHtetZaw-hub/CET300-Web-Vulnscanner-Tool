@@ -1,7 +1,6 @@
 from datetime import datetime
-from typing import Annotated
 
-from pydantic import AnyHttpUrl, BaseModel, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, BaseModel, ConfigDict, field_validator
 
 from app.models.scan import ScanStatus
 

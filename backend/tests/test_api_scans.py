@@ -2,7 +2,6 @@ import pytest
 
 from app.models.scan import Scan, ScanStatus
 
-
 # ── POST /scans ────────────────────────────────────────────────────────────────
 
 @pytest.mark.asyncio

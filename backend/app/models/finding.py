@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum as PyEnum
 
 from sqlalchemy import DateTime, Enum, Float, ForeignKey, String, Text
@@ -52,7 +52,7 @@ class Finding(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
-        default=lambda: datetime.now(timezone.utc),
+        default=lambda: datetime.now(UTC),
     )
 
     scan: Mapped["Scan"] = relationship("Scan", back_populates="findings")  # noqa: F821

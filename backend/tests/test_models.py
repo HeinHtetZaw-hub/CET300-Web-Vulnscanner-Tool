@@ -1,8 +1,8 @@
 import pytest
 from sqlalchemy import select
 
+from app.models.finding import Confidence, Finding, Severity
 from app.models.scan import Scan, ScanStatus
-from app.models.finding import Finding, Severity, Confidence
 
 
 @pytest.mark.asyncio

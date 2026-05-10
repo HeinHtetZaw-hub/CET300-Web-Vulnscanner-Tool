@@ -1,4 +1,3 @@
-from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
@@ -6,7 +5,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
 from app.models.scan import Scan, ScanStatus
-from app.schemas.scan import DEFAULT_CONFIG, ScanCreate, ScanListResponse, ScanProgress, ScanResponse
+from app.schemas.scan import (
+    DEFAULT_CONFIG,
+    ScanCreate,
+    ScanListResponse,
+    ScanProgress,
+    ScanResponse,
+)
 
 router = APIRouter(prefix="/scans", tags=["scans"])
 

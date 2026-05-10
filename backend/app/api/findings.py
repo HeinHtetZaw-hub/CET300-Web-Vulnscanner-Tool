@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 from app.models.finding import Finding, Severity
 from app.models.scan import Scan
-from app.schemas.finding import FindingDetail, FindingListResponse, FindingResponse
+from app.schemas.finding import FindingDetail, FindingListResponse
 
 router = APIRouter(prefix="/scans/{scan_id}/findings", tags=["findings"])
 
