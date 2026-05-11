@@ -50,16 +50,16 @@ For full details on any phase, say: "Read PROJECT_PLAN.md and do Phase X"
 PROJECT_PLAN.md contains: full directory tree, database schema, all API endpoints, CVSS vectors, OWASP mappings, detection logic, and step-by-step Claude CLI prompts for all 12 phases.
 
 ## Progress Log
-- [ ] Phase 1.1 — Backend skeleton (FastAPI + health endpoint)
-- [ ] Phase 1.2 — Database models (scans + findings)
-- [ ] Phase 1.3 — API routes + Pydantic schemas
-- [ ] Phase 1.4 — Frontend skeleton (React + Vite + Tailwind)
-- [ ] Phase 1.5 — Verify everything runs
-- [ ] Phase 2.1 — URL validator + private IP blocking
-- [ ] Phase 2.2 — Rate-limited HTTP client
-- [ ] Phase 3 — Web crawler (BFS, form extraction, parameter discovery)
-- [ ] Phase 4.1 — Base detection module abstract class
-- [ ] Phase 4.2 — Scan engine orchestrator
+- [x] Phase 1.1 — Backend skeleton (FastAPI + health endpoint)
+- [x] Phase 1.2 — Database models (scans + findings)
+- [x] Phase 1.3 — API routes + Pydantic schemas
+- [x] Phase 1.4 — Frontend skeleton (React + Vite + Tailwind)
+- [x] Phase 1.5 — Verify everything runs
+- [x] Phase 2.1 — URL validator + private IP blocking
+- [x] Phase 2.2 — Rate-limited HTTP client
+- [x] Phase 3 — Web crawler (BFS, form extraction, parameter discovery)
+- [x] Phase 4.1 — Base detection module abstract class
+- [x] Phase 4.2 — Scan engine orchestrator
 - [ ] Phase 5 — SQL injection module (error, boolean, time-based)
 - [ ] Phase 6.1 — Reflected XSS module
 - [ ] Phase 6.2 — Stored XSS module

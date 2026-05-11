@@ -1,10 +1,12 @@
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database import get_db
+from app.database import AsyncSessionLocal, get_db
 from app.models.scan import Scan, ScanStatus
+from app.scanner.engine import ScanEngine, request_cancel
 from app.schemas.scan import (
     DEFAULT_CONFIG,
     ScanCreate,
@@ -17,7 +19,11 @@ router = APIRouter(prefix="/scans", tags=["scans"])
 
 
 @router.post("", response_model=ScanResponse, status_code=status.HTTP_201_CREATED)
-async def create_scan(body: ScanCreate, db: AsyncSession = Depends(get_db)):
+async def create_scan(
+    body: ScanCreate,
+    background_tasks: BackgroundTasks,
+    db: AsyncSession = Depends(get_db),
+):
     config = body.config or DEFAULT_CONFIG
     scan = Scan(
         target_url=str(body.target_url),
@@ -27,7 +33,20 @@ async def create_scan(body: ScanCreate, db: AsyncSession = Depends(get_db)):
     db.add(scan)
     await db.commit()
     await db.refresh(scan)
+    background_tasks.add_task(_run_scan_background, scan.id, str(body.target_url), config)
     return scan
+
+
+async def _run_scan_background(scan_id: str, target_url: str, config: dict) -> None:
+    """Background task: creates its own DB session and drives the scan engine."""
+    async with AsyncSessionLocal() as session:
+        engine = ScanEngine(
+            scan_id=scan_id,
+            target_url=target_url,
+            config=config,
+            db=session,
+        )
+        await engine.run_scan()
 
 
 @router.get("", response_model=ScanListResponse)
@@ -71,6 +90,7 @@ async def cancel_scan(scan_id: str, db: AsyncSession = Depends(get_db)):
             status_code=status.HTTP_409_CONFLICT,
             detail=f"Scan is already {scan.status.value} and cannot be cancelled.",
         )
+    request_cancel(scan_id)
     scan.status = ScanStatus.cancelled
     await db.commit()
     await db.refresh(scan)

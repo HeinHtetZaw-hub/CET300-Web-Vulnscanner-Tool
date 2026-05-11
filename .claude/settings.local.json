@@ -3,7 +3,23 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "PowerShell(npm *)"
+      "PowerShell(npm *)",
+      "Bash(python -m ruff check app/scanner/modules/base.py)",
+      "Bash(python -m ruff check tests/test_base_module.py)",
+      "Bash(python -m ruff check --fix tests/test_base_module.py)",
+      "Bash(python -m pytest tests/test_base_module.py -v)",
+      "Bash(py -3.11 -m pytest tests/test_base_module.py -v)",
+      "Bash(py --list)",
+      "Bash(py -3.13 -m pytest tests/test_base_module.py -v)",
+      "Bash(py -3.13 -m pip install pytest pytest-asyncio)",
+      "Bash(py -3.13 -m pytest tests/test_base_module.py -v --ignore=tests/conftest.py -p no:asyncio)",
+      "Bash(py -3.13 -m pip install \"pytest-asyncio>=0.23\")",
+      "Bash(py *)",
+      "Bash(New-Item -Path \"C:\\\\Users\\\\heinh\\\\OneDrive\\\\Documents\\\\CET 300 Web Vulnscanner Tool\\\\backend\\\\app\\\\scoring\\\\__init__.py\" -ItemType File -Force)",
+      "Bash(Out-Null)",
+      "Bash(New-Item -Path \"C:\\\\Users\\\\heinh\\\\OneDrive\\\\Documents\\\\CET 300 Web Vulnscanner Tool\\\\backend\\\\app\\\\mapping\\\\__init__.py\" -ItemType File -Force)",
+      "Bash(python -m ruff check app/scoring/ app/mapping/ app/scanner/engine.py app/api/scans.py tests/test_engine.py)",
+      "Bash(python -m ruff check --fix app/api/scans.py tests/test_engine.py)"
     ]
   }
 }
