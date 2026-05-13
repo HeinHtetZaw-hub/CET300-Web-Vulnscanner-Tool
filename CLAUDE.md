@@ -60,15 +60,15 @@ PROJECT_PLAN.md contains: full directory tree, database schema, all API endpoint
 - [x] Phase 3 — Web crawler (BFS, form extraction, parameter discovery)
 - [x] Phase 4.1 — Base detection module abstract class
 - [x] Phase 4.2 — Scan engine orchestrator
-- [ ] Phase 5 — SQL injection module (error, boolean, time-based)
-- [ ] Phase 6.1 — Reflected XSS module
-- [ ] Phase 6.2 — Stored XSS module
-- [ ] Phase 6.3 — DOM-based XSS module (Selenium)
-- [ ] Phase 7 — CVSS scoring engine + OWASP mapper
-- [ ] Phase 8.1 — IDOR detection
-- [ ] Phase 8.2 — SSRF detection
-- [ ] Phase 8.3 — Security misconfiguration (headers + exposed files)
-- [ ] Phase 8.4 — Sensitive data exposure
+- [x] Phase 5 — SQL injection module (error, boolean, time-based)
+- [x] Phase 6.1 — Reflected XSS module
+- [x] Phase 6.2 — Stored XSS module
+- [x] Phase 6.3 — DOM-based XSS module (Selenium)
+- [x] Phase 7 — CVSS scoring engine + OWASP mapper
+- [x] Phase 8.1 — IDOR detection
+- [x] Phase 8.2 — SSRF detection
+- [x] Phase 8.3 — Security misconfiguration (headers + exposed files)
+- [x] Phase 8.4 — Sensitive data exposure
 - [ ] Phase 9.1 — Progress page (live scan monitoring)
 - [ ] Phase 9.2 — Results page (sortable/filterable findings table)
 - [ ] Phase 9.3 — Finding detail page (evidence viewer)

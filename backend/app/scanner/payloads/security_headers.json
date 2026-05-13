@@ -1,0 +1,32 @@
+{
+  "Strict-Transport-Security": {
+    "description": "HTTP Strict Transport Security — instructs browsers to use HTTPS only",
+    "recommended": "max-age=31536000; includeSubDomains; preload",
+    "owasp_ref": "A05:2021 Security Misconfiguration"
+  },
+  "Content-Security-Policy": {
+    "description": "Controls resources the browser is allowed to load, preventing XSS and injection",
+    "recommended": "default-src 'self'; script-src 'self'; object-src 'none'",
+    "owasp_ref": "A05:2021 Security Misconfiguration"
+  },
+  "X-Content-Type-Options": {
+    "description": "Prevents browsers from MIME-type sniffing a response away from the declared content-type",
+    "recommended": "nosniff",
+    "owasp_ref": "A05:2021 Security Misconfiguration"
+  },
+  "X-Frame-Options": {
+    "description": "Prevents the page from being embedded in iframes (clickjacking protection)",
+    "recommended": "DENY",
+    "owasp_ref": "A05:2021 Security Misconfiguration"
+  },
+  "Referrer-Policy": {
+    "description": "Controls how much referrer information is sent with requests",
+    "recommended": "strict-origin-when-cross-origin",
+    "owasp_ref": "A05:2021 Security Misconfiguration"
+  },
+  "Permissions-Policy": {
+    "description": "Restricts access to browser features and APIs (formerly Feature-Policy)",
+    "recommended": "geolocation=(), camera=(), microphone=(), payment=()",
+    "owasp_ref": "A05:2021 Security Misconfiguration"
+  }
+}

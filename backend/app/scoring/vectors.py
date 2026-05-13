@@ -36,7 +36,7 @@ CVSS_SCORES: dict[str, tuple[float, str]] = {
     "sqli_blind_boolean":  (10.0, "Critical"),
     "sqli_blind_time":     (10.0, "Critical"),
     "xss_reflected":       (6.1,  "Medium"),
-    "xss_stored":          (6.5,  "Medium"),
+    "xss_stored":          (6.4,  "Medium"),
     "xss_dom":             (6.1,  "Medium"),
     "idor":                (8.1,  "High"),
     "ssrf":                (8.6,  "High"),

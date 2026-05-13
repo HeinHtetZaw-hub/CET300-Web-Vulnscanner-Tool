@@ -19,7 +19,15 @@
       "Bash(Out-Null)",
       "Bash(New-Item -Path \"C:\\\\Users\\\\heinh\\\\OneDrive\\\\Documents\\\\CET 300 Web Vulnscanner Tool\\\\backend\\\\app\\\\mapping\\\\__init__.py\" -ItemType File -Force)",
       "Bash(python -m ruff check app/scoring/ app/mapping/ app/scanner/engine.py app/api/scans.py tests/test_engine.py)",
-      "Bash(python -m ruff check --fix app/api/scans.py tests/test_engine.py)"
+      "Bash(python -m ruff check --fix app/api/scans.py tests/test_engine.py)",
+      "Bash(python -m pytest tests/test_sqli.py -v)",
+      "Bash(dir \"C:\\\\Users\\\\heinh\\\\OneDrive\\\\Documents\\\\CET 300 Web Vulnscanner Tool\\\\backend\\\\app\\\\scanner\\\\payloads\\\\\" 2>&1 *)",
+      "Bash(curl -s http://localhost:8000/health)",
+      "Bash(curl -s -X POST http://localhost:8000/api/v1/scans -H 'Content-Type: application/json' -d '{\"target_url\":\"http://httpbin.org\",\"authorisation_confirmed\":true,\"config\":{\"modules\":[\"sqli\",\"xss_reflected\",\"misconfig\",\"exposure\"],\"crawl_depth\":1}}')",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s http://localhost:8000/api/v1/scans/06d45ab7-b552-4fa8-bcc8-bd32ceac2a88)",
+      "Bash(curl *)",
+      "Bash(pkill -f \"uvicorn app.main:app\")"
     ]
   }
 }

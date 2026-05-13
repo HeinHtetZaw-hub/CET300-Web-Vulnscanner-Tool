@@ -254,12 +254,25 @@ def test_unimplemented_module_is_skipped(db_session):
     engine = ScanEngine(
         scan_id="fake-id-2",
         target_url="http://example.com",
+        config={"modules": ["unknown_module_xyz"], "crawl_depth": 1},
+        db=db_session,
+    )
+    # unknown_module_xyz is not a real module → empty list
+    assert engine._modules == []
+    _cancel_events.pop("fake-id-2", None)
+
+
+def test_implemented_module_is_loaded(db_session):
+    """sqli is now implemented — the engine should load it successfully."""
+    engine = ScanEngine(
+        scan_id="fake-id-3",
+        target_url="http://example.com",
         config={"modules": ["sqli"], "crawl_depth": 1},
         db=db_session,
     )
-    # sqli module not implemented yet → empty list
-    assert engine._modules == []
-    _cancel_events.pop("fake-id-2", None)
+    assert len(engine._modules) == 1
+    assert engine._modules[0].name == "SQL Injection"
+    _cancel_events.pop("fake-id-3", None)
 
 
 # ---------------------------------------------------------------------------
