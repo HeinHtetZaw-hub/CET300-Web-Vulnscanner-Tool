@@ -135,6 +135,8 @@ class DOMXSSModule(BaseModule):
 
     def _create_driver(self):
         """Create a headless Chrome WebDriver. Raises if Selenium is not installed."""
+        import os  # noqa: PLC0415
+
         from selenium import webdriver  # noqa: PLC0415
         from selenium.webdriver.chrome.options import Options  # noqa: PLC0415
 
@@ -144,6 +146,14 @@ class DOMXSSModule(BaseModule):
         opts.add_argument("--disable-dev-shm-usage")
         opts.add_argument("--disable-gpu")
         opts.add_argument("--window-size=1920,1080")
+
+        # In Docker the Chromium binary is at /usr/bin/chromium (set via CHROME_BINARY).
+        # On Windows/macOS dev machines the env var is unset and Selenium finds Chrome
+        # automatically via PATH / the bundled selenium-manager.
+        chrome_binary = os.environ.get("CHROME_BINARY")
+        if chrome_binary:
+            opts.binary_location = chrome_binary
+
         return webdriver.Chrome(options=opts)
 
     # ------------------------------------------------------------------

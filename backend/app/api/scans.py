@@ -5,6 +5,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import AsyncSessionLocal, get_db
+from app.models.finding import Finding
 from app.models.scan import Scan, ScanStatus
 from app.scanner.engine import ScanEngine, request_cancel
 from app.schemas.scan import (
@@ -79,7 +80,24 @@ async def get_scan(scan_id: str, db: AsyncSession = Depends(get_db)):
 @router.get("/{scan_id}/progress", response_model=ScanProgress)
 async def get_scan_progress(scan_id: str, db: AsyncSession = Depends(get_db)):
     scan = await _get_scan_or_404(scan_id, db)
-    return scan
+
+    sev_result = await db.execute(
+        select(Finding.severity, func.count(Finding.id))
+        .where(Finding.scan_id == scan_id)
+        .group_by(Finding.severity)
+    )
+    findings_by_severity = {row[0].value: row[1] for row in sev_result.all()}
+
+    return ScanProgress(
+        id=scan.id,
+        status=scan.status,
+        total_urls_found=scan.total_urls_found,
+        total_findings=scan.total_findings,
+        current_module=scan.current_module,
+        started_at=scan.started_at,
+        completed_at=scan.completed_at,
+        findings_by_severity=findings_by_severity,
+    )
 
 
 @router.post("/{scan_id}/cancel", response_model=ScanResponse)

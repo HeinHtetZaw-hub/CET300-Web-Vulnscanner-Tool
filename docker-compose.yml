@@ -1,29 +1,87 @@
+# VulnScanner — Docker Compose
+#
+# Quick start:
+#   cp .env.example .env          # then edit as needed
+#   docker compose up --build -d
+#
+# With test targets (DVWA + Juice Shop):
+#   docker compose --profile test up --build -d
+#
+# Access:
+#   App        → http://localhost
+#   API docs   → http://localhost/api/v1/docs   (via nginx proxy)
+#   DVWA       → http://localhost:8080   (--profile test only)
+#   Juice Shop → http://localhost:3000   (--profile test only)
+
 services:
+
+  # ── Backend (FastAPI) ────────────────────────────────────────────────────────
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "${BACKEND_PORT:-8000}:8000"
     environment:
-      - DATABASE_URL=sqlite+aiosqlite:///./vulnscanner.db
-      - RATE_LIMIT_RPS=10
-      - APP_VERSION=1.0.0
+      DATABASE_URL:   "sqlite+aiosqlite:///./data/vulnscanner.db"
+      RATE_LIMIT_RPS: "${RATE_LIMIT_RPS:-10}"
+      APP_VERSION:    "1.0.0"
+      HTTP_TIMEOUT:   "${HTTP_TIMEOUT:-10.0}"
+      # Path to Chromium binary inside the container (installed via apt)
+      CHROME_BINARY:  "/usr/bin/chromium"
     volumes:
-      - backend_data:/app
+      # Only persist the SQLite database — do NOT mount the whole /app directory
+      - db_data:/app/data
     networks:
       - vulnscanner
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout:  5s
+      start_period: 30s
+      retries: 3
 
+  # ── Frontend (React + nginx) ─────────────────────────────────────────────────
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "${FRONTEND_PORT:-80}:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     networks:
       - vulnscanner
+    restart: unless-stopped
 
+  # ── Test targets — only start with: docker compose --profile test up ─────────
+  dvwa:
+    image: vulnerables/web-dvwa:latest
+    ports:
+      - "${DVWA_PORT:-8080}:80"
+    networks:
+      - vulnscanner
+    profiles:
+      - test
+    restart: "no"
+
+  juiceshop:
+    image: bkimminich/juice-shop:latest
+    ports:
+      - "${JUICESHOP_PORT:-3000}:3000"
+    networks:
+      - vulnscanner
+    profiles:
+      - test
+    restart: "no"
+
+# ── Volumes ───────────────────────────────────────────────────────────────────
 volumes:
-  backend_data:
+  db_data:     # SQLite database file persisted across container restarts
 
+# ── Networks ──────────────────────────────────────────────────────────────────
 networks:
   vulnscanner:
     driver: bridge

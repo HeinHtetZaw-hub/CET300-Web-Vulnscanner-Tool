@@ -1,0 +1,21 @@
+# Standalone vulnerable test targets for VulnScanner integration testing.
+#
+# Start:  docker compose up -d
+# Stop:   docker compose down
+#
+# After DVWA starts, visit http://localhost:8080, log in with admin/password,
+# go to DVWA Security and set the level to "Low" before scanning.
+
+services:
+
+  dvwa:
+    image: vulnerables/web-dvwa:latest
+    ports:
+      - "8080:80"
+    restart: "no"
+
+  juiceshop:
+    image: bkimminich/juice-shop:latest
+    ports:
+      - "3000:3000"
+    restart: "no"

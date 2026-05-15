@@ -53,5 +53,7 @@ class ScanProgress(BaseModel):
     status: ScanStatus
     total_urls_found: int
     total_findings: int
+    current_module: str | None = None
     started_at: datetime | None = None
     completed_at: datetime | None = None
+    findings_by_severity: dict[str, int] = {}

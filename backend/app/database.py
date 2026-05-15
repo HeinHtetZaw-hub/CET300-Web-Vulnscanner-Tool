@@ -1,3 +1,4 @@
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
@@ -28,3 +29,10 @@ async def get_db() -> AsyncSession:
 async def init_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        # Safe migration: add current_module column to existing DBs
+        try:
+            await conn.execute(
+                text("ALTER TABLE scans ADD COLUMN current_module VARCHAR(64)")
+            )
+        except Exception:
+            pass  # Column already exists

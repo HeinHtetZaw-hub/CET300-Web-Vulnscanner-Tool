@@ -32,6 +32,7 @@ class Scan(Base):
     total_urls_found: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     total_findings: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     config: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    current_module: Mapped[str | None] = mapped_column(String(64), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,

@@ -101,6 +101,7 @@ class ScanEngine:
         await self._update_scan(
             status=ScanStatus.crawling,
             started_at=datetime.now(UTC),
+            current_module=None,
         )
 
         crawl_depth = self._config.get("crawl_depth", 3)
@@ -128,9 +129,10 @@ class ScanEngine:
         total_findings = 0
         for idx, module in enumerate(self._modules):
             if self._cancel_event.is_set():
-                await self._update_scan(status=ScanStatus.cancelled)
+                await self._update_scan(status=ScanStatus.cancelled, current_module=None)
                 return
 
+            await self._update_scan(current_module=module.name)
             self._emit("scanning", idx, len(self._modules))
             logger.info("Scan %s: running module '%s'", self._scan_id, module.name)
 
@@ -158,6 +160,7 @@ class ScanEngine:
             status=ScanStatus.completed,
             completed_at=datetime.now(UTC),
             total_findings=total_findings,
+            current_module=None,
         )
         self._emit("completed", total_findings, total_findings)
 

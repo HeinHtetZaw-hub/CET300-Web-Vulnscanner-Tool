@@ -69,11 +69,11 @@ PROJECT_PLAN.md contains: full directory tree, database schema, all API endpoint
 - [x] Phase 8.2 — SSRF detection
 - [x] Phase 8.3 — Security misconfiguration (headers + exposed files)
 - [x] Phase 8.4 — Sensitive data exposure
-- [ ] Phase 9.1 — Progress page (live scan monitoring)
-- [ ] Phase 9.2 — Results page (sortable/filterable findings table)
-- [ ] Phase 9.3 — Finding detail page (evidence viewer)
-- [ ] Phase 10 — PDF report generator (WeasyPrint)
-- [ ] Phase 11.1 — JSON export
-- [ ] Phase 11.2 — Docker Compose finalisation
-- [ ] Phase 11.3 — README
-- [ ] Phase 12 — Integration testing against DVWA
+- [x] Phase 9.1 — Progress page (live scan monitoring)
+- [x] Phase 9.2 — Results page (sortable/filterable findings table)
+- [x] Phase 9.3 — Finding detail page (evidence viewer)
+- [x] Phase 10 — PDF report generator (fpdf2, polished stakeholder-ready report)
+- [x] Phase 11.1 — JSON export
+- [x] Phase 11.2 — Docker Compose finalisation
+- [x] Phase 11.3 — README
+- [x] Phase 12 — Integration testing against DVWA

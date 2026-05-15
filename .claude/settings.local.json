@@ -27,7 +27,24 @@
       "Bash(python3 -m json.tool)",
       "Bash(curl -s http://localhost:8000/api/v1/scans/06d45ab7-b552-4fa8-bcc8-bd32ceac2a88)",
       "Bash(curl *)",
-      "Bash(pkill -f \"uvicorn app.main:app\")"
+      "Bash(pkill -f \"uvicorn app.main:app\")",
+      "Bash(npm run *)",
+      "Bash(python -c \"import weasyprint; print\\(weasyprint.__version__\\)\")",
+      "Bash(python -c \"import reportlab; print\\('reportlab', reportlab.Version\\)\")",
+      "Bash(python -c \"import fpdf; print\\('fpdf ok'\\)\")",
+      "Bash(python -c \"import xhtml2pdf; print\\('xhtml2pdf ok'\\)\")",
+      "Bash(python -c \"import jinja2; print\\('jinja2', jinja2.__version__\\)\")",
+      "Bash(pip install *)",
+      "Bash(python -c \"from fpdf import FPDF; print\\('fpdf2 ok'\\); from fpdf.enums import XPos, YPos; print\\('enums ok'\\)\")",
+      "Bash(where python3.11)",
+      "Bash(where uvicorn *)",
+      "Bash(python -c \"from fpdf import FPDF; from fpdf.enums import XPos, YPos; print\\('fpdf2 import ok'\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(start *)",
+      "Bash(del \"C:/Users/heinh/OneDrive/Documents/CET 300 Web Vulnscanner Tool/backend/test_report.pdf\")",
+      "Bash(docker compose *)",
+      "Bash(python -m pytest tests/test_integration_dvwa.py --collect-only -q)",
+      "Bash(python *)"
     ]
   }
 }
